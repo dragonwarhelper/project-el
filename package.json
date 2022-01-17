@@ -1,7 +1,7 @@
 {
-    "name": "Dwarium",
-    "version": "1.0.3",
-    "description": "",
+    "name": "DragonWar",
+    "version": "22.1.16",
+    "description": "Enhanced version of Dwarium",
     "main": "main.js",
     "scripts": {
         "start": "electron .",
@@ -18,13 +18,14 @@
     },
     "dependencies": {
         "@electron/remote": "^2.0.1",
+        "axios": "^0.24.0",
         "electron-updater": "^4.6.1",
         "v8-compile-cache": "^2.3.0"
     },
     "build": {
-        "appId": "com.dwarium.ru",
-        "productName": "Dwarium",
-        "copyright": "Copyright 2022 ©. Деды воевали!",
+        "appId": "com.ru.dwar",
+        "productName": "Dragon War",
+        "copyright": "Copyright 2022 ©",
         "mac": {
             "category": "public.app-category.games",
             "icon": "build/icon.icns",

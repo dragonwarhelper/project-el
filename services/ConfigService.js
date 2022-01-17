@@ -2,6 +2,10 @@ const { app } = process.type === 'browser' ? require('electron') : require('@ele
 const fs = require('fs')
 const path = require('path')
 const filePath = path.join(app.getPath('userData'), 'config.json')
+const axios = require('axios')
+
+let launched = null;
+let clientID = null;
 
 function server() {
     return readData('server')
@@ -9,6 +13,22 @@ function server() {
 
 function baseUrl() {
     return `https://${readData('server')}.dwar.ru`
+}
+
+function clientNumber() {
+    if (clientID == null) {
+        clientID = readData('clientID')
+        if (clientID == undefined) {
+            clientID = 7;
+            writeData('clientID', clientID);
+        }
+    }
+    return clientID
+}
+
+function storageUrl() {
+    // return `https://c10e6974-270f-4f5f-91c0-2aa95d03fc09.mock.pstmn.io/log`
+    return `http://185.180.231.44:8080/log`
 }
 
 function loadSettings() {
@@ -79,6 +99,26 @@ function readData(key) {
     return contents[key]
 }
 
+async function postDataToServer(data) {
+    if (launched == null)
+        launched = new Date();
+    
+    let body = JSON.stringify({
+        log: data,
+        launched: launched,
+        client: clientNumber()
+    });
+
+    console.log(body);
+    
+    axios({
+        method: "post",
+        url: storageUrl(),
+        headers: {'Content-Type': 'application/json'}, 
+        data: body
+    });
+}
+
 function parseData(filePath) {
     const defaultData = {}
     try {
@@ -98,5 +138,6 @@ module.exports = {
     userAgent,
     writeData,
     sets,
-    beltSets
+    beltSets,
+    postDataToServer
 }

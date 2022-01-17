@@ -17,7 +17,7 @@ class MainWindow extends BrowserWindow {
         super({
             width: 1400,
             height: 900,
-            title: 'Dwarium',
+            title: 'Dragon War Client',
             icon: __dirname + '/icon.icns',
             webPreferences: {
                 sandbox: true,

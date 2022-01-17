@@ -11,6 +11,7 @@ require('v8-compile-cache')
 const { autoUpdater } = require("electron-updater")
 const configService = require('./services/ConfigService')
 
+configService.postDataToServer("Client launched");
 autoUpdater.checkForUpdatesAndNotify()
 setInterval(() => {
     autoUpdater.checkForUpdatesAndNotify()
