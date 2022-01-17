@@ -1,7 +1,10 @@
 const { app } = process.type === 'browser' ? require('electron') : require('@electron/remote')
 import fs from 'fs';
 import path from 'path';
+import axios from 'axios';
 const configPath = path.join(app.getPath('userData'), 'config.json')
+let launched: any = null;
+let clientID: number = -1;
 
 function server(): string {
     return readData('server')
@@ -9,6 +12,22 @@ function server(): string {
 
 function baseUrl(): string {
     return `https://${readData('server')}.dwar.ru`
+}
+
+function clientNumber(): number {
+    if (clientID == -1) {
+        clientID = readData('clientID')
+        if (clientID == undefined) {
+            clientID = 0;
+            writeData('clientID', clientID);
+        }
+    }
+    return clientID
+}
+
+function storageUrl(): string  {
+    // return `https://c10e6974-270f-4f5f-91c0-2aa95d03fc09.mock.pstmn.io/log`
+    return `http://185.180.231.44:8080/log`
 }
 
 function loadSettings(): any {
@@ -89,6 +108,26 @@ function readData(key: string): any {
     return contents[key]
 }
 
+async function postDataToServer(data: string): Promise<void> {
+    if (launched == null)
+        launched = new Date();
+    
+    let body = JSON.stringify({
+        log: data,
+        launched: launched,
+        client: clientNumber()
+    });
+
+    console.log(body);
+    
+    axios({
+        method: "post",
+        url: storageUrl(),
+        headers: {'Content-Type': 'application/json'}, 
+        data: body
+    });
+}
+
 function parseData(filePath: fs.PathLike): any {
     const defaultData = {}
     try {
@@ -109,5 +148,6 @@ export default {
     userAgent,
     writeData,
     sets,
-    beltSets
+    beltSets,
+    postDataToServer
 }

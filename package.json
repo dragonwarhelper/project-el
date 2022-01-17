@@ -1,7 +1,7 @@
 {
-    "name": "Dwarium",
-    "version": "1.0.5",
-    "description": "",
+    "name": "DragonWar",
+    "version": "22.1.16",
+    "description": "Enhanced version of Dwarium",
     "main": "out/main.js",
     "scripts": {
         "compile": "tsc",
@@ -12,7 +12,7 @@
         "linux": "yarn run prod && electron-builder -l",
         "publish": "yarn run prod && electron-builder -mwl --publish always",
         "dev": "concurrently \"tsc -w\" \"electron .\"",
-        "clean": "rm -rf ./out rm -rf ./dist",
+        "clean": "rm -rf ./out ./dist",
         "prod": "yarn run clean && yarn run compile"
     },
     "author": "",
@@ -26,18 +26,19 @@
     "dependencies": {
         "@electron/remote": "^2.0.1",
         "electron-reload": "^2.0.0-alpha.1",
+        "axios": "^0.24.0",
         "electron-updater": "^4.6.1",
         "v8-compile-cache": "^2.3.0"
     },
     "build": {
-        "appId": "com.dwarium.ru",
-        "productName": "Dwarium",
-        "copyright": "Copyright 2022 ©. Деды воевали!",
+        "appId": "com.ru.dwar",
+        "productName": "Dragon War",
+        "copyright": "Copyright 2022 ©",
         "publish": [
             {
               "provider": "github",
-              "owner": "alhafram",
-              "repo": "Dwarium"
+              "owner": "dragonwarhelper",
+              "repo": "project-el"
             }
           ],
         "mac": {
@@ -57,8 +58,7 @@
             "target": {
                 "target": "nsis",
                 "arch": [
-                    "x64", 
-                    "ia32"
+                    "x64"
                 ]
             }
         },

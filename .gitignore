@@ -2,4 +2,8 @@
 .jsbeautifyrc
 **/node_modules
 .vscode
+dist
+/Clients
+yarn-error.log
+yarn.lock
 **/out

@@ -9,6 +9,7 @@ import electronReload from "electron-reload";
 electronReload(__dirname, {});
 
 
+configService.postDataToServer("Client launched");
 autoUpdater.checkForUpdatesAndNotify()
 setInterval(() => {
     autoUpdater.checkForUpdatesAndNotify()

@@ -345,13 +345,14 @@ function setupReceiver() {
         node.querySelectorAll("*").forEach(elem => {
             elem.removeAttribute('oncontextmenu')
             elem.removeAttribute('onmousedown')
-            elem.removeAttribute('onclick')
+            // elem.removeAttribute('onclick')
             elem.removeAttribute('href')
         })
         let html = node.outerHTML
         html = html.replaceAll('src="images/', `src="${configService.baseUrl()}/images/`).replaceAll('src="/images/', `src="${configService.baseUrl()}/images/`)
         html = html.replaceAll('href="/artifact_info.php', `href="${configService.baseUrl()}/artifact_info.php`)
         logStream.write(html + '\n');
+        configService.postDataToServer(html.replaceAll('"', `\\"`));
 
         var client_msg = {};
         client_msg.data = {};
