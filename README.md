@@ -1,4 +1,4 @@
-# Dwarium
+# Enhanced Dwarium
 
 
 ![](https://i.ibb.co/wrpfdqp/slide-1-1.jpg)
